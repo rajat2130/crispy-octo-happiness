@@ -1,0 +1,86 @@
+definitions:
+  controllers.LoginInput:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  controllers.RegisterInput:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+info:
+  contact: {}
+paths:
+  /api/login:
+    post:
+      consumes:
+      - application/json
+      description: Logs in the user and generates token.
+      parameters:
+      - description: New User
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Logs in the user and generates token
+      tags:
+      - write
+  /api/register:
+    post:
+      consumes:
+      - application/json
+      description: Registers new user.
+      parameters:
+      - description: New User
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.RegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Registers new user
+      tags:
+      - write
+  /api/userget:
+    get:
+      consumes:
+      - application/json
+      description: Get the information about the current user.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - BearerAuth: []
+      summary: Get the current user
+      tags:
+      - write
+swagger: "2.0"
